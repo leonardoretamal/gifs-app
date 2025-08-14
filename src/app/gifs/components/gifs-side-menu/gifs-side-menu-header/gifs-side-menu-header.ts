@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { environment } from '@environments/environment.development';
+/* import { environment } from '../../../../../environments/environment'; */
 
 @Component({
   selector: 'gifs-side-menu-header',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   templateUrl: './gifs-side-menu-header.html',
 })
 export class GifsSideMenuHeader {
+
+  envs = environment;
 
 }
