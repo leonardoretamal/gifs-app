@@ -15,8 +15,8 @@ export class GifService {
   trendingGifsLoading = signal(true);
 
   constructor() {
-    console.log('servicio creado')
-    this.getTrendingGifs();
+     console.log('servicio creado');
+    this.getTrendingGifs(); //se llama solo una vez
   }
 
   getTrendingGifs() {
@@ -32,6 +32,23 @@ export class GifService {
         console.log({ gifs });
         this.trendingGifs.set(gifs);
         this.trendingGifsLoading.set(false);
+      });
+  }
+
+  searchGifs(query: string) {
+    const replacePlus = query.replace(/ /g, '+');
+    this.http
+      .get<GiphyResponse>(`${environment.giphyUrl}/gifs/search`, {
+        params: {
+          api_key: environment.giphyApiKey,
+          q: replacePlus,
+          limit: 25,
+          lang: 'es',
+        },
+      })
+      .subscribe((resp) => {
+        const gifs = GifMapper.mapGiphyItemstoGifArray(resp.data);
+        console.log({ search: gifs });
       });
   }
 }
