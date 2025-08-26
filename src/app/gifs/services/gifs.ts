@@ -12,7 +12,7 @@ const GIF_KEY = 'gifs';
 const loadFromLocalStorage = () => {
   const gifsFromLocalStorage = localStorage.getItem(GIF_KEY) ?? '{}'; //Record<string, gifs[]>
   const gifs = JSON.parse(gifsFromLocalStorage);
-  console.log(gifs);
+
   return gifs;
 };
 
@@ -31,8 +31,6 @@ export class GifService {
     for (let i = 0; i < this.trendingGifs().length; i += 3) {
       groups.push(this.trendingGifs().slice(i, i + 3));
     }
-
-    console.log('grupos: ', groups);
 
     return groups; //[[gif1,gif2,gif3],[gif4,gif5,gif6]]
   });
@@ -59,7 +57,6 @@ export class GifService {
       })
       .subscribe((resp) => {
         const gifs = GifMapper.mapGiphyItemstoGifArray(resp.data);
-        console.log({ gifs });
         this.trendingGifs.set(gifs);
         this.trendingGifsLoading.set(false);
       });
