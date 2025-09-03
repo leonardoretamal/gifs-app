@@ -32,6 +32,8 @@ export default class TrendingPage {
 
     const isAtBottom = scrollTop + clientHeight + 300 >= scrollHeight;
 
-    console.log({ isAtBottom });
+    if (isAtBottom) {
+      this.gifService.getTrendingGifs();
+    }
   }
 }
